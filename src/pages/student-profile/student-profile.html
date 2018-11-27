@@ -1,0 +1,108 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>{{ user?.firstName }} {{ user?.lastName }}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content color="#f8f8f8" style="padding-bottom: 20px">
+  <ion-item-group style="margin-bottom: 50px!important">
+    <ion-item-divider>{{ "EDUCATION" | translate }}</ion-item-divider>
+
+    <ion-item text-wrap>
+      <ion-icon name="open" color="primary" *ngIf="hasPrivilege()" item-end (click)="editGrade()"></ion-icon>
+      <span class="description">{{ "GRADE AVERAGE" | translate }}:</span>
+      {{ user?.gradeAverage }}
+    </ion-item>
+
+    <ion-item text-wrap>
+      <span class="eval-header">{{ "EVAL SUMMARY" | translate }}</span>
+    </ion-item>
+
+    <ion-item *ngFor="let eval of user?.eval" text-wrap>
+      {{ eval.subject | translate }}
+      <span item-end>{{ eval.eval }}</span>
+      <ion-icon name="open" color="primary" *ngIf="hasTutorPrivilegeSubject(eval.subject)" item-end (click)="editEval(eval)"></ion-icon>
+      <ion-icon name="text" item-end *ngIf="hasTutorPrivilegeSubject(eval.subject)" color="primary" (click)="editDescription(eval)"></ion-icon>
+
+      <ion-icon name="eye" color="primary" *ngIf="hasTutorPrivilegeSubject(eval.subject)" item-end (click)="openHistory(eval)"></ion-icon>
+
+      <ion-icon name="close" color="danger" style="margin-left: 20px;" *ngIf="hasPrivilege()" item-end (click)="removeEval(eval)"></ion-icon>
+    </ion-item>
+    <button ion-item (click)="addEval()" *ngIf="hasPrivilege()">
+      + {{ "ADD EVAL" | translate }}
+    </button>
+    <ion-item-divider>{{ "USER SUMMARY (TODAY)" | translate }}
+    </ion-item-divider>
+    <ion-item text-wrap>
+      <ion-icon name="open" color="primary" *ngIf="hasPrivilege()" item-end (click)="editSummary(summary)"></ion-icon>
+      <span class="description">{{ "SUMMARY" | translate }}:</span>
+      {{ summary }}
+    </ion-item>
+    <ion-item-divider>{{ "USER INFORMATION" | translate }}</ion-item-divider>
+    <ion-item text-wrap>
+      <ion-icon name="open" color="primary" *ngIf="hasPrivilege()" item-end (click)="editInputStr('description', user?.description)"></ion-icon>
+      <span class="description">{{ "ABOUT" | translate }}:</span>
+      {{ user?.description }}
+    </ion-item>
+    <ion-item text-wrap class="date">
+      <ion-icon name="open" color="primary" *ngIf="hasPrivilege()" item-end></ion-icon>
+      <span item-start class="description">{{ "ENROLL DATE" | translate }}:</span>
+      <ion-datetime displayFormat="MMM DD YYYY" style="border-bottom: none!important;" [(ngModel)]="user.enrollDate" (ionChange)="refreshUser()"></ion-datetime>
+    </ion-item>
+    <ion-item text-wrap>
+      <ion-icon name="open" color="primary" *ngIf="hasPrivilege()" item-end (click)="editSchool(user)"></ion-icon>
+      <span class="description">{{ "SCHOOL" | translate }}:</span>
+      {{ user?.school }}
+    </ion-item>
+    <ion-item text-wrap>
+      <ion-icon name="open" color="primary" *ngIf="hasPrivilege()" item-end (click)="editResponsible(user)"></ion-icon>
+      <span class="description">{{ "RESPONSIBLE" | translate }}:</span>
+      {{ user?.responsible }}
+    </ion-item>
+    <span *ngIf="hasPrivilege()">
+      <ion-item-divider>{{ "CONTACT" | translate }}</ion-item-divider>
+      <ion-item text-wrap>
+        <ion-icon name="open" color="primary" *ngIf="hasPrivilege()" item-end (click)="editInputStr('fatherName', user?.fatherName)"></ion-icon>
+        <span class="description">{{ "FATHER" | translate }}:</span>
+        {{ user?.fatherName }}
+      </ion-item>
+      <ion-item text-wrap>
+        <ion-icon name="open" color="primary" *ngIf="hasPrivilege()" item-end (click)="editInputStr('motherName', user?.motherName)"></ion-icon>
+        <span class="description">{{ "MOTHER" | translate }}:</span>
+        {{ user?.motherName }}
+      </ion-item>
+      <ion-item text-wrap>
+        <ion-icon name="open" color="primary" *ngIf="hasPrivilege()" item-end (click)="editInputStr('phoneNumber', user?.phoneNumber, 'number')"></ion-icon>
+        <span class="description">Tel:</span> {{ user?.phoneNumber }}
+      </ion-item>
+      <ion-item text-wrap>
+        <ion-icon name="open" color="primary" *ngIf="hasPrivilege()" item-end (click)="editInputStr('address', user?.address)"></ion-icon>
+        <span class="description">{{ "ADDRESS" | translate }}:</span>
+        {{ user?.address }}
+      </ion-item>
+      <ion-item text-wrap>
+        <ion-icon name="open" color="primary" *ngIf="hasPrivilege()" item-end (click)="editInputStr('contactEmail', user?.contactEmail, 'email')"></ion-icon>
+        <span class="description">{{ "CONTACT EMAIL" | translate }}:</span>
+        {{ user?.contactEmail ? user?.contactEmail : "No contact email" }}
+      </ion-item>
+    </span>
+    <span *ngIf="hasPrivilege()">
+      <ion-item-divider>{{ "STUDENT REPORT" | translate }}</ion-item-divider>
+      <ion-item text-wrap class="date">
+        <span item-start class="description">{{ "FROM DATE" | translate }}:</span>
+        <ion-datetime displayFormat="MMM DD YYYY" (ionChange)="updateFromDate($event)"></ion-datetime>
+      </ion-item>
+      <ion-item text-wrap class="date">
+        <span item-start class="description">{{ "TO DATE" | translate }}:</span>
+        <ion-datetime displayFormat="MMM DD YYYY" (ionChange)="updateToDate($event)"></ion-datetime>
+      </ion-item>
+      <button ion-button (click)="sendReport()" color="danger">
+        {{ "SEND REPORT" | translate }}
+      </button>
+    </span>
+  </ion-item-group>
+
+</ion-content>
+<button class="bottom-view" ion-button (click)="openStudentCalendar()">
+  {{ user?.firstName }}{{ "'S AGENDA" | translate }}
+</button>

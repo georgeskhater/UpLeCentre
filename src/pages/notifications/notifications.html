@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>{{ "NOTIFICATIONS" | translate }}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item-divider *ngIf="notifications.length > 0">
+      {{ getDate(notifications[0].timestamp) }}
+    </ion-item-divider>
+    <div
+      *ngFor="let notification of notifications; index as i"
+      [attr.data-index]="i"
+    >
+      <ion-item-divider
+        *ngIf="
+          i !== 0 &&
+          getMonth(notifications[i].timestamp) !=
+            getMonth(notifications[i - 1].timestamp)
+        "
+      >
+        {{ getDate(notification.timestamp) }}
+      </ion-item-divider>
+      <ion-item text-wrap>
+        <ion-icon
+          item-start
+          name="notifications-outline"
+          color="danger"
+        ></ion-icon>
+        <p>{{ notification.message }}</p>
+        <p class="date">{{ getDate(notification.timestamp) }}</p>
+      </ion-item>
+    </div>
+  </ion-list>
+</ion-content>

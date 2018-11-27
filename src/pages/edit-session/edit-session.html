@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>{{ session.objective }}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item text-wrap>
+      <span class="description">{{ "STUDENT" | translate }}:</span>
+      {{ session?.studentName }}
+    </ion-item>
+    <ion-item text-wrap>
+      <span class="description">{{ "SUBJECT" | translate }}:</span>
+      {{ session?.subject }}
+    </ion-item>
+    <ion-item text-wrap>
+      <span class="description">{{ "OBJECTIVE" | translate }}:</span>
+      {{ session?.objective }}
+    </ion-item>
+    <ion-item text-wrap>
+      <span class="description">{{ "DUE DATE" | translate }}:</span>
+      {{ getDate(session?.eventTimestamp) }}
+    </ion-item>
+    <ion-item text-wrap>
+      <span class="description">{{ "CATEGORY" | translate }}:</span>
+      {{ session?.category }}
+    </ion-item>
+    <ion-item text-wrap>
+      <ion-icon
+        name="open"
+        color="primary"
+        *ngIf="hasTutorPrivilege(session.subject)"
+        item-end
+        (click)="editEval()"
+      ></ion-icon>
+      <span class="description">{{ "EVAL" | translate }}:</span>
+      {{ session?.eval }}
+    </ion-item>
+    <ion-item text-wrap>
+      <ion-icon
+        name="open"
+        color="primary"
+        *ngIf="hasTutorPrivilege(session.subject)"
+        item-end
+        (click)="editInputStr('note', session?.note)"
+      ></ion-icon>
+      <span class="description">{{ "NOTE" | translate }}:</span>
+      {{ session?.note }}
+    </ion-item>
+  </ion-list>
+  <button
+    ion-button
+    class="bottom-view"
+    color="danger"
+    (click)="deleteSession()"
+  >
+    {{ "DELETE SESSION" | translate }}
+  </button>
+</ion-content>

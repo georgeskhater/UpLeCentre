@@ -1,0 +1,7 @@
+{
+  "name": "center",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}

@@ -1,0 +1,7 @@
+[
+  {
+    "origin": ["https://us-central1-bordo-4982d.cloudfunctions.net/"],
+    "method": ["GET"],
+    "maxAgeSeconds": 3600
+  }
+]

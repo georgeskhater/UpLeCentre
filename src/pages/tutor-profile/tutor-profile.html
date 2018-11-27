@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>{{ user?.firstName }} {{ user?.lastName }}</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-item-group>
+    <ion-item text-wrap>
+      <ion-icon name="open" color="primary" *ngIf="hasPrivilege()" item-end (click)="editInputStr('phoneNumber', user?.phoneNumber, 'number')"></ion-icon>
+      <span class="description">Tel:</span> {{ user?.phoneNumber }}
+    </ion-item>
+    <ion-item text-wrap>
+      <ion-icon name="open" color="primary" *ngIf="hasPrivilege()" item-end (click)="editInputStr('address', user?.address)"></ion-icon>
+      <span class="description">{{ "ADDRESS" | translate }}:</span>
+      {{ user?.address }}
+    </ion-item>
+    <ion-item text-wrap class="date">
+      <ion-icon name="open" color="primary" *ngIf="hasPrivilege()" item-end></ion-icon>
+      <span item-start class="description">{{ "ENROLL DATE" | translate }}:</span>
+      <ion-datetime displayFormat="MMM DD YYYY" style="border-bottom: none!important;" [(ngModel)]="user.enrollDate" (ionChange)="refreshUser()"></ion-datetime>
+    </ion-item>
+    <ion-item text-wrap>
+      <ion-icon name="open" color="primary" (click)="openSubjectPicker()" *ngIf="hasPrivilege()" item-end></ion-icon>
+      <span class="description">{{ "SUBJECT" | translate }}:</span>
+      {{ user?.subject.toString() | translate }}
+    </ion-item>
+    <ion-item text-wrap>
+      <ion-icon name="open" color="primary" *ngIf="hasPrivilege()" item-end (click)="openPrimarySubjectPicker()"></ion-icon>
+      <span class="description">{{ "PRIMARY SUBJECT" | translate }}:</span>
+      {{ user?.primarySubject }}
+    </ion-item>
+    <ion-item text-wrap>
+      <span class="description">{{ "EMAIL" | translate }}:</span>
+      {{ user?.email ? user?.email : "No contact email set" }}
+    </ion-item>
+  </ion-item-group>
+
+  <button ion-button color="danger" *ngIf="!user.revoked" class="bottom-view" (click)="revokePermissions()">
+    {{ "REVOKE PERMISSIONS" | translate }}
+  </button>
+
+  <button ion-button color="danger" *ngIf="user.revoked" class="bottom-view" (click)="reinstatePermissions()">
+    Re-instate permissions
+  </button>
+</ion-content>

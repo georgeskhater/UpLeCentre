@@ -1,0 +1,73 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>{{ user?.firstName }}{{ "'S AGENDA" | translate }}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ng-template #template let-view="view" let-row="row" let-col="col">
+  <div style="width: 100%; height: 100%; padding:8px">
+    {{ view.dates[row * 7 + col].label }}
+  </div>
+</ng-template>
+
+<ng-template #inactiveTemplate let-view="view" let-row="row" let-col="col">
+  <div style="width: 100%; height: 100%; padding:8px; color:#aaaaaa; background: white;">
+    {{ view.dates[row * 7 + col].label }}
+  </div>
+</ng-template>
+
+<ion-content no-padding>
+  <ion-item color="light" style="display: flex; align-items: center; justify-content: center;">
+    <ion-icon (click)="goBack()" name="arrow-back" item-start color="dark-gray"></ion-icon>
+    <ion-icon (click)="goNext()" name="arrow-forward" item-end color="dark-gray"></ion-icon>
+    <ion-label style="display: flex; align-items: center; justify-content: center; width: 100%; margin-left: -16px;">{{ calendarTitle }}</ion-label>
+  </ion-item>
+  <ion-grid>
+    <ion-row *ngIf="translate.currentLang.toUpperCase() == 'EN'; else frenchDate">
+      <ion-col *ngFor="let weekday of daysOfWeek" style="display: flex; align-items: center; justify-content: center;">
+        <span style="font-size: 14px; font-weight: bold; color: primary">{{ weekday }}
+        </span>
+      </ion-col>
+    </ion-row>
+    <ng-template #frenchDate>
+      <ion-row>
+        <ion-col *ngFor="let weekday of daysOfWeekFr" style="display: flex; align-items: center; justify-content: center;">
+          <span style="font-size: 14px; font-weight: bold; color: primary">{{ weekday }}
+          </span>
+        </ion-col>
+      </ion-row>
+    </ng-template>
+    <ion-row *ngFor="let row of rows; let i = index">
+      <ion-col *ngFor="let column of columns; let j = index" style="display: flex; align-items: center; justify-content: center; margin: 2px; ">
+        <div style="padding:5px; border-radius: 20%; width: 28px; display: flex; align-items: center; justify-content: center; cursor:pointer"
+          [ngStyle]="{
+            'background-color': getSlotColor(displayedDates[i * 7 + j]),
+            color: getTextColor(displayedDates[i * 7 + j])
+          }" (click)="updateSelectedDate(displayedDates[i * 7 + j])">
+          <span style="font-size: 16px;">{{ getDisplayDate(displayedDates[i * 7 + j]) }}
+          </span>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-item-divider color="light" *ngIf="getDateEvents(selectedDate).length">Events</ion-item-divider>
+  <ion-list *ngIf="getDateEvents(selectedDate).length > 0" style="margin-bottom: 40px!important;">
+    <button ion-item *ngFor="let event of getDateEvents(selectedDate)" (click)="openEvent(event)" text-wrap>
+      <ion-icon name="list-box" [ngStyle]="{ color: getColor(event) }" item-start></ion-icon>
+      {{ event.subject }} - {{ event.objective }}
+    </button>
+  </ion-list>
+  <ion-item-divider color="light" *ngIf="getDateEvents(selectedDate).length === 0">{{ "NO EVENTS ON THIS DAY" | translate }}
+  </ion-item-divider>
+
+  <ion-item-divider color="light" *ngIf="haveSummary()">{{ "SUMMARY" | translate }}
+  </ion-item-divider>
+  <ion-item *ngIf="haveSummary()" text-wrap>
+    <span class="description">{{ "SUMMARY" | translate }}:</span> {{ summary }}
+  </ion-item>
+
+  <button ion-button class="bottom-view" (click)="addEvent(selectedDate)">
+    {{ "ADD EVENT" | translate }}: {{ selectedDate | date: "mediumDate":"":local }}
+  </button>
+</ion-content>

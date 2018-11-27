@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>{{ subject | translate }} : {{ "ADD" | translate }} {{ "SESSION ON" | translate }} {{ getDate() }}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <button ion-item (click)="selectUser()">
+      <ion-label color="primary">{{ "SELECT USER" | translate }}</ion-label>
+    </button>
+    <ion-item>{{ getUser() }}</ion-item>
+
+    <ion-item-divider>{{ "USER UPCOMING EVENTS" | translate }}
+    </ion-item-divider>
+
+    <ion-list>
+      <button ion-item *ngFor="let event of events" text-wrap (click)="selectedEvent = event">
+        <ion-icon name="list-box" [ngStyle]="{ color: getColor(event) }" item-start></ion-icon>
+        {{ event.subject }} - {{ event.objective }}
+        <ion-icon name="checkbox" color="confirm" item-end *ngIf="selectedEvent && selectedEvent.id === event.id"></ion-icon>
+      </button>
+    </ion-list>
+  </ion-list>
+</ion-content>
+
+<button ion-button class="bottom-view" (click)="addSession()">
+  {{ "ADD SESSION" | translate }}
+</button>

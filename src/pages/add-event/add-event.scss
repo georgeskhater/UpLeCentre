@@ -1,0 +1,36 @@
+page-add-event {
+  .category {
+    cursor: pointer;
+    display: inline-block;
+    width: auto;
+    text-align: center;
+    padding: 6px;
+    border: 1.5px solid color($colors, primary);
+    border-radius: 10px;
+    background: white;
+    color: color($colors, primary);
+    margin-right: 8px;
+  }
+
+  .category-selected {
+    margin-right: 10px;
+    text-align: center;
+    cursor: pointer;
+    display: inline-block;
+    width: auto;
+    padding: 4px;
+    border: 1.5px solid color($colors, primary);
+    border-radius: 10px;
+    color: white;
+    background: color($colors, primary);
+  }
+
+  .title {
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  ion-item {
+    padding-left: 0px !important;
+  }
+}

@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-buttons end>
+      <button ion-button icon-only (click)="navCtrl.pop()">
+        <ion-icon name="close" color="light"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>{{ updating ? "Update Event" : translate.instant("ADD EVENT ON") }} {{ date | date: "mediumDate":"":local }}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list no-lines inset>
+    <ion-item>
+      <ion-select [(ngModel)]="userEvent.subject" placeholder="Select subject">
+        <!-- *ngFor="let subject of curUser.subject" -->
+        <ion-option *ngFor="let subject of subjects" [value]="subject">
+          {{ subject }}
+        </ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-input placeholder="Objective" [(ngModel)]="userEvent.objective">{{ userEvent?.objective }}
+      </ion-input>
+    </ion-item>
+    <ion-item style="margin-top: 10px;" *ngIf="!updating">
+      <span class="test" [ngClass]="
+          userEvent.category === 'EXERCISE' ? 'category-selected' : 'category'
+        " (click)="userEvent.category = 'EXERCISE'">{{'HOMEWORK' | translate}}</span>
+      <span [ngClass]="
+          userEvent.category === 'CONTROL' ? 'category-selected' : 'category'
+        " (click)="userEvent.category = 'CONTROL'">{{'TEST' | translate}}</span>
+      <span [ngClass]="
+          userEvent.category === 'EXAM' ? 'category-selected' : 'category'
+        " (click)="userEvent.category = 'EXAM'">{{'EXAM' | translate}}</span>
+    </ion-item>
+  </ion-list>
+
+  <button ion-button style="width: 90%; left: 5%; right: 5%; margin-bottom: 14px; align-self: center; justify-self: center;"
+    color="primary" (click)="addEvent()">
+    {{ updating ? "Update Event" : translate.instant("ADD EVENT") }}
+  </button>
+  <button ion-button style="width: 90%; left: 5%; right: 5%; margin-bottom: 14px; align-self: center; justify-self: center;"
+    color="danger" (click)="deleteEvent()" *ngIf="updating">
+    Delete Event
+  </button>
+
+  <ion-item-divider *ngIf="updating">
+    Sessions attended about this
+  </ion-item-divider>
+
+  <ion-list *ngIf="updating" inset>
+    <ion-item *ngFor="let session of sessions">
+      <ion-icon name="list-box" [ngStyle]="{ color: getColor(session) }" item-start></ion-icon>
+      <p>{{ getDate(session.timestamp) }}</p>
+      <p>
+        Note: {{ session.note && session.note !== "" ? session.note : "Not yet set" }}
+      </p>
+      <p>
+        Eval: {{ session.eval && session.eval !== 0 ? session.eval : "Not yet set" }}
+      </p>
+    </ion-item>
+  </ion-list>
+</ion-content>

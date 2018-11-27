@@ -1,0 +1,107 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>{{ "ADD STUDENT" | translate }}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list inset>
+    <ion-item>
+      <ion-label stacked>{{ "FIRST NAME" | translate }}</ion-label>
+      <ion-input type="text" [(ngModel)]="student.firstName"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>{{ "LAST NAME" | translate }}</ion-label>
+      <ion-input type="text" [(ngModel)]="student.lastName"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>{{ "PHONE NUMBER" | translate }}</ion-label>
+      <ion-input type="number" [(ngModel)]="student.phoneNumber"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>{{ "ENROLL DATE" | translate }}</ion-label>
+      <ion-datetime
+        displayFormat="MMM DD YYYY"
+        [(ngModel)]="student.enrollDate"
+      ></ion-datetime>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>{{ "ADDRESS" | translate }}</ion-label>
+      <ion-input type="text" [(ngModel)]="student.address"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>{{ "MOTHER" | translate }}</ion-label>
+      <ion-input type="text" [(ngModel)]="student.motherName"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>{{ "FATHER" | translate }}</ion-label>
+      <ion-input type="text" [(ngModel)]="student.fatherName"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>{{ "CONTACT EMAIL" | translate }}</ion-label>
+      <ion-input type="email" [(ngModel)]="student.contactEmail"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>{{ "DESCRIPTION" | translate }}</ion-label>
+      <ion-textarea
+        type="text"
+        aria-multiline="true"
+        [(ngModel)]="student.description"
+      ></ion-textarea>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>{{ "SCHOOL" | translate }}</ion-label>
+      <ion-select placeholder="School" [(ngModel)]="student.school">
+        <ion-option [value]="key" *ngFor="let key of objectKeys(schools)">
+          {{ key }}
+        </ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>{{ "RESPONSIBLE" | translate }}</ion-label>
+      <ion-select placeholder="Responsible" [(ngModel)]="student.responsible">
+        <ion-option
+          [value]="responsible"
+          *ngFor="let responsible of schools[student.school]"
+        >
+          {{ responsible }}
+        </ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>{{ "GRADE AVERAGE" | translate }}</ion-label>
+      <ion-input type="number" [(ngModel)]="student.gradeAverage"></ion-input>
+    </ion-item>
+
+    <ion-item *ngFor="let eval of student.eval">
+      {{ "SUBJECT" | translate }} : {{ eval.subject | translate }}:
+      {{ eval.eval }}
+      <ion-icon
+        (click)="removeEval(eval)"
+        color="danger"
+        name="remove"
+        item-end
+      ></ion-icon>
+    </ion-item>
+
+    <button
+      ion-item
+      style="border-bottom: solid 1px #dedede"
+      (click)="addEval()"
+    >
+      + {{ "ADD EVAL" | translate }}
+    </button>
+  </ion-list>
+  <button ion-button class="add-button" (click)="addStudent()">
+    {{ "ADD STUDENT" | translate }}
+  </button>
+</ion-content>

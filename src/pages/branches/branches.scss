@@ -1,0 +1,33 @@
+page-branches {
+
+  .location {
+    display: block;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    height: 50%;
+    width: 100%;
+    font-size: 30px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .scroll-content {
+    overflow-y: hidden !important;
+  }
+
+  .one {
+    background: #3770a7;
+  }
+
+  .two {
+    background: #ff4471;
+  }
+
+  .check {
+    margin-left: 10px;
+    font-size: 20px;
+  }
+}

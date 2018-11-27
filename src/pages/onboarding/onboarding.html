@@ -1,0 +1,40 @@
+<h1 class="title-header">Up Le Centre</h1>
+
+<div class="background"></div>
+
+<div padding class="content">
+  <lottie-animation-view
+    style="padding-bottom: 40px;"
+    [options]="lottieConfig"
+    [width]="200"
+    [height]="200"
+  >
+  </lottie-animation-view>
+</div>
+
+<div class="bottom">
+  <button
+    ion-button
+    block
+    round
+    color="white"
+    class="login"
+    [ngStyle]="{ width: mobileView ? '100%' : '300px' }"
+    (click)="openLoginPage()"
+  >
+    {{ "LOGIN" | translate }}
+  </button>
+
+  <button
+    ion-button
+    outline
+    block
+    round
+    color="white"
+    class="register"
+    [ngStyle]="{ width: mobileView ? '100%' : '300px' }"
+    (click)="openRegisterPage()"
+  >
+    {{ "REGISTER" | translate }}
+  </button>
+</div>

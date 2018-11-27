@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>{{ "SETTINGS" | translate }}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list style="border-bottom: 1px solid #d9d9d9">
+    <ion-item>
+      {{ "LOGGED IN AS" | translate }}: {{ user.firstName }} {{ user.lastName }}
+    </ion-item>
+    <button ion-item (click)="openNotifications()">
+      {{ "NOTIFICATIONS" | translate }}
+    </button>
+    <ion-item> {{ "VERSION" | translate }}: 1.0.0 </ion-item>
+    <ion-item text-wrap>
+      <ion-icon name="open" color="primary" (click)="changeLanguage(translate)" item-end></ion-icon>
+      <span class="description">{{ "LANGUAGE" | translate }}:</span>
+      {{ translate.currentLang.toUpperCase() }}
+    </ion-item>
+    <button ion-item (click)="logout()">
+      <ion-label color="danger">{{ "LOGOUT" | translate }}</ion-label>
+    </button>
+  </ion-list>
+</ion-content>

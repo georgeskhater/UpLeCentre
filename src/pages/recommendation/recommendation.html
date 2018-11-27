@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>Send {{ userName }} to...</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-item-divider>Suggested homework</ion-item-divider>
+  <button ion-item *ngIf="suggestedEvent" (click)="addSession(suggestedEvent)">
+    <ion-icon
+      name="list-box"
+      [ngStyle]="{ color: getColor(suggestedEvent) }"
+      item-start
+    ></ion-icon>
+    <p>{{ suggestedEvent.subject }} - {{ suggestedEvent.objective }}</p>
+    <p>{{ getDate(suggestedEvent.timestamp) }}</p>
+  </button>
+  <ion-item *ngIf="!suggestedEvent">No suggestions</ion-item>
+
+  <ion-item-divider>Upcoming homeworks</ion-item-divider>
+  <button ion-item *ngFor="let event of allEvents" (click)="addSession(event)">
+    <ion-icon
+      name="list-box"
+      [ngStyle]="{ color: getColor(event) }"
+      item-start
+    ></ion-icon>
+    <p>{{ event.subject }} - {{ event.objective }}</p>
+    <p>{{ getDate(event.timestamp) }}</p>
+  </button>
+</ion-content>

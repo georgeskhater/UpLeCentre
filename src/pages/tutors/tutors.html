@@ -1,0 +1,57 @@
+<ion-header no-border="">
+  <ion-navbar color="primary">
+    <ion-searchbar
+      #searchBar
+      placeholder="Search for tutor"
+      [showCancelButton]="true"
+      (ionInput)="search(searchBar.value)"
+      [debounce]="200"
+      (ionClear)="users = []"
+    >
+    </ion-searchbar>
+    <ion-buttons end *ngIf="user && user.privilege === 'ADMIN'">
+      <button ion-button icon-only (click)="openAddUserPage()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div class="content">
+    <lottie-animation-view
+      [hidden]="!loading"
+      class="lottie-search"
+      [options]="lottieConfig"
+      [width]="80"
+      [height]="80"
+    >
+    </lottie-animation-view>
+  </div>
+</ion-content>
+
+<ion-content>
+  <ion-list-header *ngIf="users && users.length > 0">
+    {{ "SEARCH RESULT" | translate }}
+  </ion-list-header>
+  <ion-list>
+    <button ion-item *ngFor="let user of users" (click)="addToRecent(user)">
+      <ion-icon name="contact" style="color: #c8c8c8" item-start></ion-icon>
+      {{ user.firstName }} {{ user.lastName }}
+    </button>
+  </ion-list>
+
+  <ion-list-header *ngIf="recentUsers && recentUsers.length > 0">
+    {{ "RECENT SEARCHES" | translate }}
+  </ion-list-header>
+  <ion-list>
+    <button
+      ion-item
+      *ngFor="let user of recentUsers"
+      (click)="openUserProfile(user)"
+    >
+      <ion-icon name="contact" style="color: #c8c8c8" item-start></ion-icon>
+      {{ user.firstName }} {{ user.lastName }}
+    </button>
+  </ion-list>
+</ion-content>

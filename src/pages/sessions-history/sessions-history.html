@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title
+      >{{ user?.firstName }}'s {{ userEval?.subject }}
+      {{ "HISTORY" | translate }}</ion-title
+    >
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let session of userSessions">
+      <ion-icon
+        name="list-box"
+        [ngStyle]="{ color: getColor(session) }"
+        item-start
+      ></ion-icon>
+      <p>{{ getDate(session.timestamp) }}</p>
+      <p>Note: {{ session.note }}</p>
+      <p>Eval: {{ session.eval }}</p>
+    </ion-item>
+  </ion-list>
+</ion-content>

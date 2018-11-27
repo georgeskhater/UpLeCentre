@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>{{ date | date: "fullDate":"":local }}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-select placeholder="Subject" [(ngModel)]="selectedSubject">
+    <!-- *ngFor="let subject of curUser.subject" -->
+    <ion-option [value]="subject" *ngFor="let subject of subjects">
+      {{ subject | translate }}
+    </ion-option>
+  </ion-select>
+
+  <ion-list>
+    <ion-item-divider>
+      {{ "COMPLETED SESSIONS" | translate }}
+    </ion-item-divider>
+    <button ion-item *ngFor="let session of getCompleted(selectedSubject)" text-wrap (click)="openSession(session)">
+      <ion-icon name="list-box" [ngStyle]="{ color: getColor(session) }" item-start></ion-icon>
+      <ion-icon item-end name="checkbox" color="confirm" *ngIf="session.eval && session.note"></ion-icon>
+      {{ session.studentName }} - {{ session.objective }}
+    </button>
+    <ion-item *ngIf="getCompleted(selectedSubject).length == -0">{{ "NO SESSIONS COMPLETED YET" | translate }}
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-item-divider> {{ "ONGOING SESSIONS" | translate }} </ion-item-divider>
+    <button ion-item *ngFor="let session of getSessions(selectedSubject)" text-wrap (click)="openSession(session)">
+      <ion-icon name="list-box" [ngStyle]="{ color: getColor(session) }" item-start></ion-icon>
+      <ion-icon item-end name="checkbox" color="confirm" *ngIf="session.eval && session.note"></ion-icon>
+      {{ session.studentName }} - {{ session.objective }}
+    </button>
+    <ion-item *ngIf="getSessions(selectedSubject).length == -0">{{ "NO ONGOING SESSIONS YET" | translate }}
+    </ion-item>
+
+    <button ion-item (click)="addsession(selectedSubject)">
+      <ion-label color="primary">{{ "ADD SESSION" | translate }}</ion-label>
+    </button>
+  </ion-list>
+</ion-content>

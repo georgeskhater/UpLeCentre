@@ -1,0 +1,40 @@
+<h1 class="title-header">Register</h1>
+
+<div class="background"></div>
+
+<div padding class="content">
+
+  <lottie-animation-view
+    [hidden]="!loading"
+    [options]="lottieConfig"
+    [width]="200"
+    [height]="200">
+  </lottie-animation-view>
+
+  <ion-list [ngStyle]="{'width':mobileView?'100%':'300px'}" [hidden]="loading">
+    <ion-item class="input-field">
+      <ion-label>First name</ion-label>
+      <ion-input #fName type="text" (focus)="updateFocus(0)"></ion-input>
+    </ion-item>
+
+    <ion-item class="input-field">
+      <ion-label>Last name</ion-label>
+      <ion-input #lName type="text" (focus)="updateFocus(1)"></ion-input>
+    </ion-item>
+
+    <ion-item class="input-field">
+      <ion-label>Email</ion-label>
+      <ion-input #email type="email" (focus)="updateFocus(2)"></ion-input>
+    </ion-item>
+
+    <ion-item class="input-field">
+      <ion-label>Password</ion-label>
+      <ion-input #password type="password" (focus)="updateFocus(3)"></ion-input>
+    </ion-item>
+
+    <button ion-button block round color="white" class="register" (click)="register()">
+      Register
+    </button>
+  </ion-list>
+
+</div>

@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "288145956289",
+    "firebase_url": "https://up-le-centre.firebaseio.com",
+    "project_id": "up-le-centre",
+    "storage_bucket": "up-le-centre.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:288145956289:android:3527865797c11b82",
+        "android_client_info": {
+          "package_name": "com.up.lecentre"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "288145956289-q7pa5gr2opllp0t8h5h4bcd8ih9jica4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDE9UdzoMg_CjXCOXolT9GRDNSHqBmrdrE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

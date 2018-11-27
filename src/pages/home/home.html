@@ -1,0 +1,30 @@
+<ion-tabs color="primary">
+  <ion-tab
+    tabIcon="home"
+    tabTitle="{{ 'HOME' | translate }} "
+    [root]="homeTab"
+  ></ion-tab>
+  <ion-tab
+    tabIcon="contact"
+    tabTitle="{{'STUDENTS' | translate }} "
+    [root]="studentsTab"
+  ></ion-tab>
+  <ion-tab
+    tabIcon="contact"
+    tabTitle="{{ 'TUTORS' | translate }} "
+    [root]="tutorsTab"
+    *ngIf="user && user.privilege === 'ADMIN'"
+  ></ion-tab>
+  <ion-tab
+    tabIcon="compass"
+    tabTitle="{{ 'BRANCHES' | translate }} "
+    [root]="branchesTab"
+    *ngIf="user && user.privilege === 'ADMIN'"
+  ></ion-tab>
+  <ion-tab
+    tabIcon="settings"
+    [root]="settingsTab"
+    tabTitle="{{ 'SETTINGS' | translate }} "
+    *ngIf="user"
+  ></ion-tab>
+</ion-tabs>
