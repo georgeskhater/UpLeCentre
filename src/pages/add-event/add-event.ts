@@ -65,13 +65,23 @@ export class AddEventPage {
       this.getSessions();
     }
   }
+
+
   ionViewDidEnter() {
+    if (!this.hasPrivilege()) {
+      this.subjects = this.curUser.subject;
+    }
+    console.log(this.curUser);
     if (this.translate.currentLang.toUpperCase() == "EN") {
       this.local = "en-GB";
     }
     else {
       this.local = "fr-CF"
     }
+  }
+
+  hasPrivilege() {
+    return this.curUser.privilege === "ADMIN";
   }
   public getColor(session: UserSession): string {
     switch (session.category) {

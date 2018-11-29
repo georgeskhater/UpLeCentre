@@ -32,10 +32,7 @@ export class DayPage {
     this.userSessions = navParams.get("userSessions");
     this.branch = this.storageService.getCachedBranch();
     this.curUser = this.storageService.getCachedCredentials();
-    if (!this.hasPrivilege()) {
-      this.subjects = this.curUser.subject;
-    }
-    console.log(this.curUser);
+
   }
 
   ionViewDidLoad() {
@@ -43,6 +40,10 @@ export class DayPage {
     this.getUserSessions();
   }
   ionViewDidEnter() {
+    if (!this.hasPrivilege()) {
+      this.subjects = this.curUser.subject;
+    }
+    console.log(this.curUser);
     if (this.translate.currentLang.toUpperCase() == "EN") {
       this.local = "en-GB";
     }
